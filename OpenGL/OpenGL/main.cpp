@@ -13,13 +13,15 @@ public:
 		{
 			"#version 330 core                                                 \n"
 			"                                                                  \n"
+			"layout (location = 0) in vec4 offset;                              \n"
+			"                                                                  \n"
 			"void main(void)                                                   \n"
 			"{                                                                 \n"
 			"    const vec4 vertices[] = vec4[](vec4( 0.25, -0.25, 0.5, 1.0),  \n"
 			"                                   vec4(-0.25, -0.25, 0.5, 1.0),  \n"
 			"                                   vec4( 0.25,  0.25, 0.5, 1.0)); \n"
 			"                                                                  \n"
-			"    gl_Position = vertices[gl_VertexID];                          \n"
+			"    gl_Position = vertices[gl_VertexID] + offset;                 \n"
 			"}																   \n"
 		};
 
