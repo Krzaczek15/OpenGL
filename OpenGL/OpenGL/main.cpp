@@ -11,12 +11,16 @@ public:
 
 		static const GLchar *vShaderSource[] =
 		{
-			"#version 330 core                          \n"
-			"                                           \n"
-			"void main(void)                            \n"
-			"{                                          \n"
-			"	gl_Position = vec4(0.0, 0.0, 0.0, 1.0); \n"
-			"}                                          \n"
+			"#version 330 core                                                 \n"
+			"                                                                  \n"
+			"void main(void)                                                   \n"
+			"{                                                                 \n"
+			"    const vec4 vertices[] = vec4[](vec4( 0.25, -0.25, 0.5, 1.0),  \n"
+			"                                   vec4(-0.25, -0.25, 0.5, 1.0),  \n"
+			"                                   vec4( 0.25,  0.25, 0.5, 1.0)); \n"
+			"                                                                  \n"
+			"    gl_Position = vertices[gl_VertexID];                          \n"
+			"}																   \n"
 		};
 
 		static const GLchar *fShaderSource[] =
@@ -64,9 +68,12 @@ public:
 
 		glUseProgram(renderingProgram);
 
-		glPointSize((float)(sin(currentTime)*50));
+		GLfloat attrib[] = { (float)sin(currentTime)*0.5f,
+							(float)cos(currentTime)*0.6f,
+							0.0f, 0.0f };
+		glVertexAttrib4fv(0, attrib);
 
-		glDrawArrays(GL_POINTS, 0, 1);
+		glDrawArrays(GL_TRIANGLES, 0, 3);
 	}
 
 	void shutdown()
