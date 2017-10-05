@@ -14,7 +14,9 @@ public:
 			"#version 330 core                                                 \n"
 			"                                                                  \n"
 			"layout (location = 0) in vec4 offset;                              \n"
+			"layout (location = 1) in vec4 color;                              \n"
 			"                                                                  \n"
+			"out vec4 vs_color;                                                                  \n"
 			"void main(void)                                                   \n"
 			"{                                                                 \n"
 			"    const vec4 vertices[] = vec4[](vec4( 0.25, -0.25, 0.5, 1.0),  \n"
@@ -22,6 +24,7 @@ public:
 			"                                   vec4( 0.25,  0.25, 0.5, 1.0)); \n"
 			"                                                                  \n"
 			"    gl_Position = vertices[gl_VertexID] + offset;                 \n"
+			"    vs_color = color;                 \n"
 			"}																   \n"
 		};
 
@@ -29,11 +32,12 @@ public:
 		{
 			"#version 330 core                          \n"
 			"                                           \n"
+			"in vec4 vs_color;                            \n"
 			"out vec4 color;                            \n"
 			"                                           \n"
 			"void main(void)                            \n"
 			"{                                          \n"
-			"	color = vec4(0.0, 0.8, 1.0, 1.0);       \n"
+			"	color = vs_color;       \n"
 			"}                                          \n"
 		};
 
@@ -74,6 +78,11 @@ public:
 							(float)cos(currentTime)*0.6f,
 							0.0f, 0.0f };
 		glVertexAttrib4fv(0, attrib);
+
+		GLfloat attrib_01[] = { (float)sin(currentTime)*0.5f,
+			(float)cos(currentTime)*0.6f,
+			0.0f, 0.0f };
+		glVertexAttrib4fv(1, attrib);
 
 		glDrawArrays(GL_TRIANGLES, 0, 3);
 	}
