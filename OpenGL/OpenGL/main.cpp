@@ -13,10 +13,14 @@ public:
 		{
 			"#version 330 core                                                 \n"
 			"                                                                  \n"
-			"layout (location = 0) in vec4 offset;                              \n"
+			"layout (location = 0) in vec4 offset;                             \n"
 			"layout (location = 1) in vec4 color;                              \n"
 			"                                                                  \n"
-			"out vec4 vs_color;                                                                  \n"
+			"out VS_OUT                                                        \n"
+		    "{																   \n"
+			"	vec4 color;													   \n"
+			"}vs_out;                                                          \n"
+			"                                                                  \n"
 			"void main(void)                                                   \n"
 			"{                                                                 \n"
 			"    const vec4 vertices[] = vec4[](vec4( 0.25, -0.25, 0.5, 1.0),  \n"
@@ -24,7 +28,7 @@ public:
 			"                                   vec4( 0.25,  0.25, 0.5, 1.0)); \n"
 			"                                                                  \n"
 			"    gl_Position = vertices[gl_VertexID] + offset;                 \n"
-			"    vs_color = color;                 \n"
+			"    vs_out.color = color;										   \n"
 			"}																   \n"
 		};
 
@@ -32,12 +36,16 @@ public:
 		{
 			"#version 330 core                          \n"
 			"                                           \n"
-			"in vec4 vs_color;                            \n"
+			"in VS_OUT                                  \n"
+			"{                                          \n"
+			"	vec4 color;                             \n"
+			"}fs_in;                                    \n"
+			"                                           \n"
 			"out vec4 color;                            \n"
 			"                                           \n"
 			"void main(void)                            \n"
 			"{                                          \n"
-			"	color = vs_color;       \n"
+			"	color = fs_in.color;                    \n"
 			"}                                          \n"
 		};
 
